@@ -103,7 +103,7 @@ class Benchmark:
     def calculate_results(self):
         # benchmark_arrays
         self.benchmark_results['benchmark_array']['time_total'] = round(self.benchmark_results['benchmark_array']['time_end'] - self.benchmark_results['benchmark_array']['time_start'], 2)
-        self.benchmark_results['benchmark_array']['points'] = round(self.benchmark_results['benchmark_array']['time_total'] / self.bench_settings['bench_strength'], 2)
+        self.benchmark_results['benchmark_array']['points'] = round(self.bench_settings['bench_strength'] / self.benchmark_results['benchmark_array']['time_total'], 2)
         self.log('Benchmark [ARRAY] took: ' + str(self.benchmark_results['benchmark_array']['time_total']) + 's', 'RESULT')
         self.log('Benchmark [ARRAY] got:  ' + str(self.benchmark_results['benchmark_array']['points']) + ' x-points', 'RESULT')
 

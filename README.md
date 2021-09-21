@@ -1,4 +1,4 @@
-# Benchmark-X v0.0.2
+# Benchmark-X v0.0.2b
 
 Benchmark-X is a combination of different scripts to test your computer capability for programming, data analasys or anything else that comes to my mind.
 While I work on this project the benchmark will get more advanced, will have different options and will work on Windows, Linux and MacOS.
