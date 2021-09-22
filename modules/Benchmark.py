@@ -7,7 +7,7 @@ import colorama
 class Benchmark:
 
     benchmark_results = {
-        'benchmark_array': {}
+        'benchmark_array': []
     }
 
     def __init__(self, 
@@ -101,14 +101,29 @@ class Benchmark:
                 open(log_file, 'w').write(logtext + '\n')
 
     def calculate_results(self):
-        # benchmark_arrays
-        self.benchmark_results['benchmark_array']['time_total'] = round(self.benchmark_results['benchmark_array']['time_end'] - self.benchmark_results['benchmark_array']['time_start'], 2)
-        self.benchmark_results['benchmark_array']['points'] = round(self.bench_settings['bench_strength'] / self.benchmark_results['benchmark_array']['time_total'], 2)
-        self.log('Benchmark [ARRAY] took: ' + str(self.benchmark_results['benchmark_array']['time_total']) + 's', 'RESULT')
-        self.log('Benchmark [ARRAY] got:  ' + str(self.benchmark_results['benchmark_array']['points']) + ' x-points', 'RESULT')
+        self.benchmark_results['benchmark_array'].append({})
+
+        self.benchmark_results['benchmark_array'][-1]['time_total'] = 0
+        self.benchmark_results['benchmark_array'][-1]['points'] = 0
+
+        for bench in range(len(self.benchmark_results['benchmark_array']) - 1):
+            cache_time_total = round(self.benchmark_results['benchmark_array'][bench]['time_end'] - self.benchmark_results['benchmark_array'][bench]['time_start'], 2)
+            self.benchmark_results['benchmark_array'][-1]['time_total'] += cache_time_total
+            cache_points = round(self.bench_settings['bench_strength'] / cache_time_total, 2)
+            self.benchmark_results['benchmark_array'][-1]['points'] += cache_points
+
+            self.benchmark_results['benchmark_array'][bench]['time_total'] = cache_time_total
+            self.benchmark_results['benchmark_array'][bench]['points'] = cache_points
+
+        self.benchmark_results['benchmark_array'][-1]['time_total'] = round(self.benchmark_results['benchmark_array'][-1]['time_total'] / (len(self.benchmark_results['benchmark_array']) - 1), 3)
+        self.benchmark_results['benchmark_array'][-1]['points'] = round(self.benchmark_results['benchmark_array'][-1]['points'] / (len(self.benchmark_results['benchmark_array']) - 1), 3)
+
+        self.log('Benchmark [ARRAY] took: ' + str(self.benchmark_results['benchmark_array'][-1]['time_total']) + 's', 'RESULT')
+        self.log('Benchmark [ARRAY] got:  ' + str(self.benchmark_results['benchmark_array'][-1]['points']) + ' x-points', 'RESULT')
 
     def benchmark_arrays(self):
-        self.benchmark_results['benchmark_array']['time_start'] = time.time()
+        self.benchmark_results['benchmark_array'].append({})
+        self.benchmark_results['benchmark_array'][-1]['time_start'] = time.time()
         benchmark_array = []
         benchmark_tqdm = tqdm(
             desc='Benchmarking Arrays',
@@ -130,4 +145,4 @@ class Benchmark:
         
         benchmark_tqdm.close()
 
-        self.benchmark_results['benchmark_array']['time_end'] = time.time()
+        self.benchmark_results['benchmark_array'][-1]['time_end'] = time.time()
