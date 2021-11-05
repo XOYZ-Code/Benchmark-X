@@ -124,7 +124,7 @@ class Benchmark:
     def benchmark_arrays(self):
         self.benchmark_results['benchmark_array'].append({})
         self.benchmark_results['benchmark_array'][-1]['time_start'] = time.time()
-        benchmark_array = []
+        self.benchmark_results['benchmark_array'][-1]['array'] = []
         benchmark_tqdm = tqdm(
             desc='Benchmarking Arrays',
             total=self.bench_settings['benchmarks']['benchmark_arrays']['array_depth'] * self.bench_settings['benchmarks']['benchmark_arrays']['array_size']
@@ -132,11 +132,11 @@ class Benchmark:
 
         for depth in range(self.bench_settings['benchmarks']['benchmark_arrays']['array_depth']):
 
-            benchmark_array.append([])
+            self.benchmark_results['benchmark_array'][-1]['array'].append([])
 
             for size in range(self.bench_settings['benchmarks']['benchmark_arrays']['array_size']):
                 
-                benchmark_array[-1].append(random.randint(
+                self.benchmark_results['benchmark_array'][-1]['array'][-1].append(random.randint(
                     self.bench_settings['benchmarks']['benchmark_arrays']['array_min'],
                     self.bench_settings['benchmarks']['benchmark_arrays']['array_max'],
                 ))
