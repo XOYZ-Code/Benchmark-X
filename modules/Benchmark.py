@@ -115,10 +115,12 @@ class Benchmark:
             self.benchmark_results['benchmark_array'][bench]['time_total'] = cache_time_total
             self.benchmark_results['benchmark_array'][bench]['points'] = cache_points
 
+            self.log('Benchmark [ARRAY] run [' + str(bench) + '] got: ' + str(self.benchmark_results['benchmark_array'][bench]['points']) + ' x-points')
+
         self.benchmark_results['benchmark_array'][-1]['time_total'] = round(self.benchmark_results['benchmark_array'][-1]['time_total'] / (len(self.benchmark_results['benchmark_array']) - 1), 3)
         self.benchmark_results['benchmark_array'][-1]['points'] = round(self.benchmark_results['benchmark_array'][-1]['points'] / (len(self.benchmark_results['benchmark_array']) - 1), 3)
 
-        self.log('Benchmark [ARRAY] took: ' + str(self.benchmark_results['benchmark_array'][-1]['time_total']) + 's', 'RESULT')
+        self.log('Benchmark [ARRAY] took: ' + str(self.benchmark_results['benchmark_array'][-1]['time_total']) + 's on average', 'RESULT')
         self.log('Benchmark [ARRAY] got:  ' + str(self.benchmark_results['benchmark_array'][-1]['points']) + ' x-points', 'RESULT')
 
     def benchmark_arrays(self):
