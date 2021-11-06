@@ -10,6 +10,9 @@ class Benchmark:
         'benchmark_array': []
     }
 
+    benchmark_time_start = time.time()
+    benchmark_time_end = -1
+
     def __init__(self, 
                 bench_strength=1,
                 wait_10_sec=False) -> None:
@@ -101,6 +104,9 @@ class Benchmark:
                 open(log_file, 'w').write(logtext + '\n')
 
     def calculate_results(self):
+        self.benchmark_time_end = time.time()
+        self.log('Benchmark-X ran for ' + str(round(self.benchmark_time_end - self.benchmark_time_start, 2)) + 's', 'INFORMATION')
+
         self.benchmark_results['benchmark_array'].append({})
 
         self.benchmark_results['benchmark_array'][-1]['time_total'] = 0
