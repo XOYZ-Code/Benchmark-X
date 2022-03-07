@@ -23,3 +23,5 @@ for i in range(newBench.total_runs):
 newBench.calculate_results()
 
 newBench.dump_results(time.ctime().replace(':', '') + '_results.json')
+
+input('Press Enter to close...')
