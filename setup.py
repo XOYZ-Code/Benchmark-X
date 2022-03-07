@@ -1,6 +1,7 @@
 from hashlib import new
 from modules.Benchmark import Benchmark
 import os
+import time
 import sys
 
 os.system('cls')
@@ -13,6 +14,12 @@ for i in range(len(sys.argv)):
 
 newBench = Benchmark(bench_strength=bench_strength)
 
-for i in range(5):
-    newBench.benchmark_arrays()
+newBench.log('Total runs: ' + str(newBench.total_runs), 'INFORMATION')
+
+for i in range(newBench.total_runs):
+    run_id = '[' + str(i) + ']'
+    newBench.benchmark_arrays(run_id)
+    newBench.benchmark_fileWrite(run_id)
 newBench.calculate_results()
+
+newBench.dump_results(time.ctime().replace(':', '') + '_results.json')
